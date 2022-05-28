@@ -1,9 +1,13 @@
 package acme.features.inventor.invention;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.entities.chimpum.Chimpum;
 import acme.entities.inventions.Invention;
+import acme.entities.inventions.InventionType;
 import acme.forms.MoneyExchange;
 import acme.framework.components.models.Model;
 import acme.framework.controllers.Request;
@@ -65,6 +69,13 @@ public class InventorInventionShowMineService implements AbstractShowService<Inv
 		final Money retailPrice = MoneyExchange.of(entity.getRetailPrice(), defaultCurrency).execute().getTarget();
 		
 		model.setAttribute("retailPrice", retailPrice);
+		
+		final Collection<Chimpum> chimpumCollection = this.repository.findChimpumByInventionId(entity.getId());
+		final boolean chimpumExists = !chimpumCollection.isEmpty();
+		
+		model.setAttribute("chimpumExists", chimpumExists);
+		model.setAttribute("masterId", entity.getId());
+		model.setAttribute("isComponent", entity.getInventionType()==InventionType.COMPONENT);
 		request.unbind(entity, model, "code", "name", "technology", "description", "link", "inventionType", "published");
 	}
 	

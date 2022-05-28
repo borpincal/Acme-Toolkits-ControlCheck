@@ -29,3 +29,6 @@ inventor.invention.form.error.spam = This invention is considered as spam
 inventor.invention.form.error.retailPrice.negative = The amount can not be negative
 
 inventor.invention.form.button.create = Create
+
+inventor.invention.form.button.listChimpum = List Chimpum
+inventor.invention.form.button.createChimpum = Create Chimpum

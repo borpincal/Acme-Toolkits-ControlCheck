@@ -1,0 +1,19 @@
+inventor.list.label.chimpum.code = Code
+inventor.list.label.chimpum.title = Title
+inventor.list.label.chimpum.description = Description
+inventor.list.label.chimpum.creationMoment = Creation Moment
+inventor.list.label.chimpum.budget = Budget
+inventor.list.label.chimpum.link = Link
+inventor.list.label.chimpum.startTime = Start Time
+inventor.list.label.chimpum.endTime = End Time
+
+inventor.chimpum.form.button.update = Update
+inventor.chimpum.form.button.delete = Delete
+inventor.chimpum.form.button.create = Create
+
+inventor.chimpum.form.error.code.duplicated = This code is taken
+inventor.chimpum.form.error.startTime = There must be 1 month between creation time and start time
+inventor.chimpum.form.error.endTime = There must be 1 week between strat time and end time
+inventor.chimpum.form.error.budget.negative = The amount can not be negative
+inventor.chimpum.form.error.budget.invalid= The currency is not support by the system
+inventor.chimpum.form.error.spam = This chimpum is considered as spam
