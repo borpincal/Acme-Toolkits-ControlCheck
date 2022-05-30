@@ -100,27 +100,22 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 			
 			errors.state(request, existing==null, "code", "inventor.chimpum.form.error.code.duplicated");
 		}
-		if(!errors.hasErrors("startTime")) {
+		if(!errors.hasErrors("startTime")&&!errors.hasErrors("endTime") ) {
 			Calendar calendar;
 			
 			calendar = new GregorianCalendar();
 			calendar.add(Calendar.MONTH, 1);
 			calendar.add(Calendar.DAY_OF_MONTH, -1);
 			
-			errors.state(request, entity.getStartTime().after(calendar.getTime()), "startTime", "inventor.chimpum.form.error.startTime");
-		
-		}
-		if(!errors.hasErrors("endTime")) {
-			Calendar calendar;
+			errors.state(request, entity.getEndTime()!=null && entity.getStartTime()!=null && entity.getStartTime().after(calendar.getTime()), "startTime", "inventor.chimpum.form.error.startTime");
+			Calendar calendar2;
 
-			calendar= new GregorianCalendar();
-			calendar.setTime(entity.getStartTime());
-			calendar.add(Calendar.WEEK_OF_MONTH, 1);
-			calendar.add(Calendar.DAY_OF_MONTH, -1);
+			calendar2= new GregorianCalendar();
+			calendar2.setTime(entity.getStartTime());
+			calendar2.add(Calendar.WEEK_OF_MONTH, 1);
+			calendar2.add(Calendar.DAY_OF_MONTH, -1);
 			
-			errors.state(request, entity.getEndTime().after(calendar.getTime()), "endTime", "inventor.chimpum.form.error.endTime");
-			
-			
+			errors.state(request, entity.getStartTime()!=null && entity.getEndTime()!=null && entity.getEndTime().after(calendar2.getTime()), "endTime", "inventor.chimpum.form.error.endTime");
 		}
 		if(!errors.hasErrors("budget")) {
 			final Set<String> acceptedCurrencies;
@@ -131,15 +126,18 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 			errors.state(request, entity.getBudget().getAmount()>0., "budget", "inventor.chimpum.form.error.budget.negative");
 			
 			errors.state(request, acceptedCurrencies.contains(entity.getBudget().getCurrency()) , "budget", "inventor.chimpum.form.error.budget.invalid");
-			{
+			
+		}
+		if(!errors.hasErrors("code")){
+			
+		}
+		{
 				Boolean isSpam;
 				
 				isSpam = entity.isSpam(this.repository.getSystemConfiguration());
 				
 				errors.state(request, !isSpam, "*", "inventor.chimpum.form.error.spam");
 			}
-		}
-		
 	}
 
 	@Override
