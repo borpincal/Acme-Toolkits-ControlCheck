@@ -49,7 +49,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 		assert entity != null;
 		assert errors != null;
 		
-		request.bind(entity, errors, "code", "title", "description", "startTime", "endTime", "link", "budget");
+		request.bind(entity, errors, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
 		
 		
 	}
@@ -60,7 +60,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 		assert entity != null;
 		assert model != null;
 	
-		request.unbind(entity, model, "code", "title", "description", "startTime", "endTime", "link", "budget");	
+		request.unbind(entity, model, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");	
 	}
 
 	@Override
@@ -83,16 +83,30 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 		assert errors != null;
 		
 		if(!errors.hasErrors("code")) {
-			Chimpum existing;
+			String[] partsOfCode;
+			String yearSt;
+			String monthSt;
+			String daySt;
 			
-			existing = this.repository.findChimpumByCode(entity.getCode());
-			
-			errors.state(request, existing==null || existing.getId() == entity.getId(), "code", "inventor.chimpum.form.error.code.duplicated");
+			partsOfCode = entity.getCode().split("-");
+			yearSt = Integer.valueOf(entity.getCreationTime().getYear()).toString().substring(1);
+			monthSt = Integer.valueOf(entity.getCreationTime().getMonth()+1).toString();
+			if (monthSt.length()==1) {
+				monthSt="0"+monthSt;
+			}
+			daySt = Integer.valueOf(entity.getCreationTime().getDate()).toString();
+			if (daySt.length()==1) {
+				daySt = "0"+daySt;
+			}
+
+			errors.state(request, partsOfCode[3].equals(yearSt) && partsOfCode[4].equals(monthSt) && partsOfCode[5].equals(daySt), "code", "inventor.chimpum.form.error.code");
+		
 		}
 		if(!errors.hasErrors("startTime")&&!errors.hasErrors("endTime") ) {
 			Calendar calendar;
 			
 			calendar = new GregorianCalendar();
+			calendar.setTime(entity.getCreationTime());
 			calendar.add(Calendar.MONTH, 1);
 			calendar.add(Calendar.DAY_OF_MONTH, -1);
 			

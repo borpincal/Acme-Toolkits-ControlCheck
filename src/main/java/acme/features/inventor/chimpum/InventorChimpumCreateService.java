@@ -48,7 +48,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 		assert entity != null;
 		assert errors != null;
 		
-		request.bind(entity, errors, "code", "title", "description", "startTime", "endTime", "link", "budget");
+		request.bind(entity, errors, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
 		
 	}
 
@@ -59,7 +59,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 		assert model != null;
 	
 		model.setAttribute("masterId",request.getModel().getInteger("masterId"));
-		request.unbind(entity, model, "code", "title", "description", "startTime", "endTime", "link", "budget");
+		request.unbind(entity, model, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
 		
 	}
 
@@ -94,11 +94,23 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 		assert errors != null;
 		
 		if(!errors.hasErrors("code")) {
-			Chimpum existing;
+			String[] partsOfCode;
+			String yearSt;
+			String monthSt;
+			String daySt;
 			
-			existing = this.repository.findChimpumByCode(entity.getCode());
-			
-			errors.state(request, existing==null, "code", "inventor.chimpum.form.error.code.duplicated");
+			partsOfCode = entity.getCode().split("-");
+			yearSt = Integer.valueOf(entity.getCreationTime().getYear()).toString().substring(1);
+			monthSt = Integer.valueOf(entity.getCreationTime().getMonth()+1).toString();
+			if (monthSt.length()==1) {
+				monthSt="0"+monthSt;
+			}
+			daySt = Integer.valueOf(entity.getCreationTime().getDate()).toString();
+			if (daySt.length()==1) {
+				daySt = "0"+daySt;
+			}
+
+			errors.state(request, partsOfCode[3].equals(yearSt) && partsOfCode[4].equals(monthSt) && partsOfCode[5].equals(daySt), "code", "inventor.chimpum.form.error.code");
 		}
 		if(!errors.hasErrors("startTime")&&!errors.hasErrors("endTime") ) {
 			Calendar calendar;
@@ -128,9 +140,6 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 			errors.state(request, acceptedCurrencies.contains(entity.getBudget().getCurrency()) , "budget", "inventor.chimpum.form.error.budget.invalid");
 			
 		}
-		if(!errors.hasErrors("code")){
-			
-		}
 		{
 				Boolean isSpam;
 				
@@ -145,9 +154,6 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 		assert request != null;
 		assert entity != null;
 
-		Date moment;
-		moment = new Date(System.currentTimeMillis() - 1);
-		entity.setCreationTime(moment);
 		this.repository.save(entity);
 		
 	}

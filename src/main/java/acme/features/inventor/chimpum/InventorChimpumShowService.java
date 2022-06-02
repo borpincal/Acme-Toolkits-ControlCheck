@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.chimpum.Chimpum;
 import acme.entities.inventions.Invention;
-import acme.entities.inventions.InventionType;
 import acme.forms.MoneyExchange;
 import acme.framework.components.models.Model;
 import acme.framework.controllers.Request;
@@ -21,7 +20,7 @@ public class InventorChimpumShowService implements AbstractShowService<Inventor,
 	
 	@Override
 	public boolean authorise(final Request<Chimpum> request) {
-assert request != null;
+		assert request != null;
 		
 		final boolean result;
 		final int chimpumId;
@@ -29,7 +28,7 @@ assert request != null;
 		
 		chimpumId = request.getModel().getInteger("id");
 		invention = this.repository.findInventionFromChimpum(chimpumId);
-		result=(invention != null && invention.getInventionType()==InventionType.COMPONENT && request.getPrincipal().getAccountId() == invention.getInventor().getUserAccount().getId());
+		result=(invention != null && request.getPrincipal().getAccountId() == invention.getInventor().getUserAccount().getId());
 		
 		return result;
 	}

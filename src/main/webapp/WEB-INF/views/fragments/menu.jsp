@@ -90,6 +90,7 @@
 			<acme:menu-suboption code="master.menu.inventor.invention.list-components" action="/inventor/invention/list-mine?type=COMPONENT"/>
 			<acme:menu-suboption code="master.menu.inventor.toolkits.list-toolkits" action="/inventor/toolkit/list-mine"/>
 			<acme:menu-suboption code="master.menu.inventor.patronage.list-patronages" action="/inventor/patronage/list"/>
+			<acme:menu-suboption code="master.menu.inventor.list-chimpum" action="/inventor/chimpum/list"/>
 			<acme:menu-suboption code="master.menu.inventor.patronage-report" action="/inventor/patronage-report/list"/>
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.any.user-account" action="/any/user-account/list"/>

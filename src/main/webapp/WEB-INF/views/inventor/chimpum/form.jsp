@@ -4,15 +4,8 @@
 <%@taglib prefix="acme" uri="urn:jsptagdir:/WEB-INF/tags"%>
 
 <acme:form>
-	<acme:input-textbox placeholder="ABC-123-A-2022-05-19" code="inventor.list.label.chimpum.code" path="code"/>
-	<jstl:choose>
-		<jstl:when test="${command == 'show'}">
-				<acme:input-moment code="inventor.list.label.chimpum.creationMoment" path="creationTime" readonly="true"/>
-		</jstl:when>
-		<jstl:when test="${command == 'create'}">
-				<acme:input-moment code="inventor.list.label.chimpum.creationMoment" path="${masterId}" readonly="true"/>
-		</jstl:when>
-	</jstl:choose>
+	<acme:input-textbox placeholder="ABC-123-A-yy-mm-dd" code="inventor.list.label.chimpum.code" path="code"/>
+	<acme:input-moment code="inventor.list.label.chimpum.creationMoment" path="creationTime" readonly="true"/>
 	<acme:input-moment code="inventor.list.label.chimpum.startTime" path="startTime"/>
 	<acme:input-moment code="inventor.list.label.chimpum.endTime" path="endTime"/>
 	<acme:input-textbox placeholder="Lorem ipsum" code="inventor.list.label.chimpum.title" path="title"/>

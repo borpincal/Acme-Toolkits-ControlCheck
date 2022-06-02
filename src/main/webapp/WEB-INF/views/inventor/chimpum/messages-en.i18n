@@ -17,3 +17,4 @@ inventor.chimpum.form.error.endTime = There must be 1 week between strat time an
 inventor.chimpum.form.error.budget.negative = The amount can not be negative
 inventor.chimpum.form.error.budget.invalid= The currency is not support by the system
 inventor.chimpum.form.error.spam = This chimpum is considered as spam
+inventor.chimpum.form.error.code = The pattern yy-mm-dd must be the creation time

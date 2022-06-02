@@ -17,3 +17,4 @@ inventor.chimpum.form.error.endTime = Debe haber al menos 1 semana entre la fech
 inventor.chimpum.form.error.budget.negative = La cantidad no puede ser negativa
 inventor.chimpum.form.error.budget.invalid= Este tipo de moneda no está soportado por el sistema
 inventor.chimpum.form.error.spam = Este chimpum es considerado spam
+inventor.chimpum.form.error.code = El patrón yy-mm-dd debe ser la fecha de creación

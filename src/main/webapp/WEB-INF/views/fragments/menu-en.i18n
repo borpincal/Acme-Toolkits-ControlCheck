@@ -70,6 +70,7 @@ master.menu.inventor.toolkits.list-published-toolkits = Published toolkits
 master.menu.inventor.patronage.list-patronages = Show my patronages
 master.menu.inventor.patronage-report = List Patronage Reports
 master.menu.inventor.invention.create = Create Invention
+master.menu.inventor.list-chimpum = List Chimpum
 
 # master.menu.patron #########################################################
 

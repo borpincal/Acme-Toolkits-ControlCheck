@@ -22,6 +22,9 @@ public interface InventorChimpumRepository extends AbstractRepository {
 	@Query("SELECT c from Chimpum c where c.invention.id = ?1")
 	List<Chimpum> findManyChimpumByMasterId(int masterId);
 	
+	@Query("SELECT c from Chimpum c where c.invention.inventor.id = ?1")
+	List<Chimpum> findManyChimpumByInventor(int masterId);
+	
 	@Query("SELECT c FROM Chimpum c where c.id = ?1")
 	Chimpum findChimpumById(int id);
 	

@@ -2,7 +2,6 @@ package acme.entities.chimpum;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -36,8 +35,7 @@ public class Chimpum extends AbstractEntity {
 	// Atributes -------------------------------------------------------
 	
 	@NotBlank
-	@Pattern(regexp = "^[A-Z]{3}-[0-9]{3}(-[A-Z])-[0-9]{4}-[0-9]{2}-[0-9]{2}?$")
-	@Column(unique=true)
+	@Pattern(regexp = "^[A-Z]{3}-[0-9]{3}(-[A-Z])-[0-9]{2}-[0-9]{2}-[0-9]{2}?$")
 	protected String			code;
 	
 	@NotNull
