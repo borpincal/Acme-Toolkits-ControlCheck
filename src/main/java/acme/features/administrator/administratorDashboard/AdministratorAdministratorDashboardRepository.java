@@ -68,19 +68,19 @@ public interface AdministratorAdministratorDashboardRepository extends AbstractR
 	Double findTotalOfInventions();
 	
 	//Para many to one distintc de las invention de los chimpum
-	@Query("select count(c) from Chimpum c where c.invention.inventionType=acme.entities.inventions.InventionType.COMPONENT")
-	Double findInventionsWithChimpum();
+	@Query("select count(c) from Goti c where c.invention.inventionType=acme.entities.inventions.InventionType.COMPONENT")
+	Double findInventionsWithGoti();
 	
-	@Query("select concat(c.budget.currency,':', avg(c.budget.amount)) from Chimpum c group by c.budget.currency")
-	List<String> findAverageBudgetChimpum();
+	@Query("select concat(c.quantity.currency,':', avg(c.quantity.amount)) from Goti c group by c.quantity.currency")
+	List<String> findAverageQuantityGoti();
 	
-	@Query("select concat(c.budget.currency,':',stddev(c.budget.amount)) from Chimpum c group by c.budget.currency")
-	List<String> findDeviationBudgetChimpum();
+	@Query("select concat(c.quantity.currency,':',stddev(c.quantity.amount)) from Goti c group by c.quantity.currency")
+	List<String> findDeviationQuantityGoti();
 	
-	@Query("select concat(c.budget.currency,':', min(c.budget.amount)) from Chimpum c group by c.budget.currency")
-	List<String> findMinimumBudgetChimpum();
+	@Query("select concat(c.quantity.currency,':', min(c.quantity.amount)) from Goti c group by c.quantity.currency")
+	List<String> findMinimumQuantityGoti();
 	
-	@Query("select concat(c.budget.currency,':', max(c.budget.amount)) from Chimpum c group by c.budget.currency")
-	List<String> findMaximumBudgetChimpum();
+	@Query("select concat(c.quantity.currency,':', max(c.quantity.amount)) from Goti c group by c.quantity.currency")
+	List<String> findMaximumQuantityGoti();
 	
 }

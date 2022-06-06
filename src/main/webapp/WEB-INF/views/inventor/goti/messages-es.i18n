@@ -1,9 +1,9 @@
 inventor.list.label.chimpum.code = Código
-inventor.list.label.chimpum.title = Título
-inventor.list.label.chimpum.description = Descripción
+inventor.list.label.chimpum.title = Tema
+inventor.list.label.chimpum.description = Resumen
 inventor.list.label.chimpum.creationMoment = Momento de Creación
-inventor.list.label.chimpum.budget = Presupuesto
-inventor.list.label.chimpum.link = Enlace
+inventor.list.label.chimpum.budget = Cantidad
+inventor.list.label.chimpum.link = Más Información
 inventor.list.label.chimpum.startTime = Fecha de inicio
 inventor.list.label.chimpum.endTime = Fecha de finalización
 
@@ -16,5 +16,5 @@ inventor.chimpum.form.error.startTime = Debe haber al menos 1 mes entre la fecha
 inventor.chimpum.form.error.endTime = Debe haber al menos 1 semana entre la fecha de inicio y la de fin
 inventor.chimpum.form.error.budget.negative = La cantidad no puede ser negativa
 inventor.chimpum.form.error.budget.invalid= Este tipo de moneda no está soportado por el sistema
-inventor.chimpum.form.error.spam = Este chimpum es considerado spam
+inventor.chimpum.form.error.spam = Este goti es considerado spam
 inventor.chimpum.form.error.code = El patrón yy-mm-dd debe ser la fecha de creación

@@ -1,4 +1,4 @@
-package acme.testing.inventor.chimpum;
+package acme.testing.inventor.goti;
 
 import java.util.Date;
 
@@ -8,12 +8,12 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import acme.testing.TestHarness;
 
-public class InventorChimpumCreateTest extends TestHarness{
+public class InventorGotiCreateTest extends TestHarness{
 	
 	@ParameterizedTest
-	@CsvFileSource(resources = "/inventor/chimpum/create-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
+	@CsvFileSource(resources = "/inventor/goti/create-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
 	@Order(10)
-	public void positiveTest(final int recordIndex, String code, final String title, final String description, final String startTime, final String endTime, final String budget,final String link) {
+	public void positiveTest(final int recordIndex, String code, final String theme, final String summary, final String startTime, final String endTime, final String quantity,final String furtherInfo) {
 
 		super.signIn("inventor1", "inventor1");
 		super.clickOnMenu("Inventor", "List my components");
@@ -24,40 +24,40 @@ public class InventorChimpumCreateTest extends TestHarness{
 		super.sortListing(0, "asc");
 		super.clickOnListingRecord(recordIndex);
 		
-		super.clickOnButton("Create Chimpum");
+		super.clickOnButton("Create Goti");
 		
 		code=this.codeToCodeWithDate(code);
 		
 		super.fillInputBoxIn("code", code);
-		super.fillInputBoxIn("title", title);
-		super.fillInputBoxIn("description", description);
+		super.fillInputBoxIn("theme", theme);
+		super.fillInputBoxIn("summary", summary);
 		super.fillInputBoxIn("startTime", startTime);
 		super.fillInputBoxIn("endTime", endTime);
-		super.fillInputBoxIn("budget", budget);
-		super.fillInputBoxIn("link", link);
+		super.fillInputBoxIn("quantity", quantity);
+		super.fillInputBoxIn("furtherInfo", furtherInfo);
 		
 		super.clickOnSubmit("Create");
 		
-		super.clickOnMenu("Inventor", "List Chimpum");
+		super.clickOnMenu("Inventor", "List Goti");
 		super.sortListing(0, "asc");
 
 		super.clickOnListingRecord(0);
 		super.checkFormExists();
 		super.checkInputBoxHasValue("code", code);
-		super.checkInputBoxHasValue("title", title);
-		super.checkInputBoxHasValue("description", description);
+		super.checkInputBoxHasValue("theme", theme);
+		super.checkInputBoxHasValue("summary", summary);
 		super.checkInputBoxHasValue("startTime", startTime);
 		super.checkInputBoxHasValue("endTime", endTime);
-		super.checkInputBoxHasValue("budget", budget);
-		super.checkInputBoxHasValue("link", link);
+		super.checkInputBoxHasValue("quantity", quantity);
+		super.checkInputBoxHasValue("furtherInfo", furtherInfo);
 		
 		super.signOut();
 	}
 	
 	@ParameterizedTest
-	@CsvFileSource(resources = "/inventor/chimpum/create-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
+	@CsvFileSource(resources = "/inventor/goti/create-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
 	@Order(20)
-	public void negativeTest(final int recordIndex, String code, final String title, final String description, final String startTime, final String endTime, final String budget,final String link) {
+	public void negativeTest(final int recordIndex, String code, final String theme, final String summary, final String startTime, final String endTime, final String quantity,final String furtherInfo) {
 
 		super.signIn("inventor1", "inventor1");
 		super.clickOnMenu("Inventor", "List my components");
@@ -68,17 +68,17 @@ public class InventorChimpumCreateTest extends TestHarness{
 		super.sortListing(0, "asc");
 		super.clickOnListingRecord(recordIndex);
 		
-		super.clickOnButton("Create Chimpum");
+		super.clickOnButton("Create Goti");
 		
 		code=this.codeToCodeWithDate(code);
 		
 		super.fillInputBoxIn("code", code);
-		super.fillInputBoxIn("title", title);
-		super.fillInputBoxIn("description", description);
+		super.fillInputBoxIn("theme", theme);
+		super.fillInputBoxIn("summary", summary);
 		super.fillInputBoxIn("startTime", startTime);
 		super.fillInputBoxIn("endTime", endTime);
-		super.fillInputBoxIn("budget", budget);
-		super.fillInputBoxIn("link", link);
+		super.fillInputBoxIn("quantity", quantity);
+		super.fillInputBoxIn("furtherInfo", furtherInfo);
 		
 		super.clickOnSubmit("Create");
 		
@@ -105,7 +105,7 @@ public class InventorChimpumCreateTest extends TestHarness{
 			daySt = "0"+daySt;
 		}
 		
-		code=code+yearSt+"-"+monthSt+"-"+daySt;
+		code=code+yearSt+":"+monthSt+":"+daySt;
 		
 		return code;
 	}

@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.entities.inventions.Invention;
 import acme.entities.inventions.InventionType;
 import acme.entities.systemConfiguration.SystemConfiguration;
@@ -30,8 +30,8 @@ public interface InventorInventionRepository extends AbstractRepository {
 	@Query("SELECT ac.acceptedCurrencies from SystemConfiguration ac")
 	String findAcceptedCurrencies();
 
-	@Query("SELECT c FROM Chimpum c where c.invention.id = ?1")
-	Collection<Chimpum> findChimpumByInventionId(int id);
+	@Query("SELECT c FROM Goti c where c.invention.id = ?1")
+	Collection<Goti> findChimpumByInventionId(int id);
 	
 	@Query("SELECT c FROM SystemConfiguration c")
 	SystemConfiguration getSystemConfiguration();

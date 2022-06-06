@@ -31,7 +31,7 @@
 	</jstl:choose>
 	<jstl:choose>
 		<jstl:when test="${!chimpumExists && isComponent}">
-			<acme:button code="inventor.invention.form.button.createChimpum" action="/inventor/chimpum/create?masterId=${masterId}"/>	
+			<acme:button code="inventor.invention.form.button.createChimpum" action="/inventor/goti/create?masterId=${masterId}"/>	
 		</jstl:when>
 	</jstl:choose>
 	

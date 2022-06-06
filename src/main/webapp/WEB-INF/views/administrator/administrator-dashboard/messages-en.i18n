@@ -18,5 +18,5 @@ administrator.dashboard.form.title.patronages = Patronages
 administrator.dashboard.form.label.status = Patronage Status
 administrator.dashboard.form.label.number-patronages.value = Number of Patronages
 
-administrator.dashboard.form.title.chimpum = Chimpum Statistics
-administrator.dashboard.form.label.ratio.chimpum = Ratio Components with Chimpium
+administrator.dashboard.form.title.chimpum = Goti Statistics
+administrator.dashboard.form.label.ratio.chimpum = Ratio Components with Goti

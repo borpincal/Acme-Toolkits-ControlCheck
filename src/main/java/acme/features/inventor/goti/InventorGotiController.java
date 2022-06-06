@@ -1,31 +1,31 @@
-package acme.features.inventor.chimpum;
+package acme.features.inventor.goti;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.framework.controllers.AbstractController;
 import acme.roles.Inventor;
 
 @Controller
-public class InventorChimpumController extends AbstractController<Inventor,Chimpum>{
+public class InventorGotiController extends AbstractController<Inventor,Goti>{
 
 	@Autowired
-	protected InventorChimpumListService	listService;
+	protected InventorGotiListService	listService;
 	
 	@Autowired
-	protected InventorChimpumShowService	showService;
+	protected InventorGotiShowService	showService;
 	
 	@Autowired
-	protected InventorChimpumCreateService	createService;
+	protected InventorGotiCreateService	createService;
 	
 	@Autowired
-	protected InventorChimpumUpdateService	updateService;
+	protected InventorGotiUpdateService	updateService;
 //	
 	@Autowired
-	protected InventorChimpumDeleteService	deleteService;
+	protected InventorGotiDeleteService	deleteService;
 	
 	@PostConstruct
 	protected void initialise() {

@@ -40,12 +40,12 @@ public class AdministratorDashboard implements Serializable{
 	    Map<PatronageStatus, Double>         minimumBudgetPatronage;
 	    Map<PatronageStatus, Double>         maximumBudgetPatronage;
 	    
-	    Double 								ratioInventionWithChimpum;
+	    Double 								ratioInventionWithGoti;
 
-	    Map<String, Double>                  averageBudgetChimpum;
-	    Map<String, Double>                  deviationBudgetChimpum;
-	    Map<String, Double>                  minimumBudgetChimpum;
-	    Map<String, Double>                  maximumBudgetChimpum;
+	    Map<String, Double>                  averageQuantityGoti;
+	    Map<String, Double>                  deviationQuantityGoti;
+	    Map<String, Double>                  minimumQuantityGoti;
+	    Map<String, Double>                  maximumQuantityGoti;
 	    
 
 		// Derived attributes -----------------------------------------------------

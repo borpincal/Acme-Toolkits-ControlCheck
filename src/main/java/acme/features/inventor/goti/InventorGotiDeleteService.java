@@ -1,9 +1,9 @@
-package acme.features.inventor.chimpum;
+package acme.features.inventor.goti;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.entities.inventions.Invention;
 import acme.framework.components.models.Model;
 import acme.framework.controllers.Errors;
@@ -12,14 +12,14 @@ import acme.framework.services.AbstractDeleteService;
 import acme.roles.Inventor;
 
 @Service
-public class InventorChimpumDeleteService implements AbstractDeleteService<Inventor, Chimpum>{
+public class InventorGotiDeleteService implements AbstractDeleteService<Inventor, Goti>{
 
 	@Autowired
-	protected InventorChimpumRepository		repository;
+	protected InventorGotiRepository		repository;
 	
 	
 	@Override
-	public boolean authorise(final Request<Chimpum> request) {
+	public boolean authorise(final Request<Goti> request) {
 		assert request != null;
 
 		boolean result;
@@ -27,7 +27,7 @@ public class InventorChimpumDeleteService implements AbstractDeleteService<Inven
 		Invention invention;
 		
 		masterId = request.getModel().getInteger("id");
-		invention = this.repository.findChimpumById(masterId).getInvention();
+		invention = this.repository.findGotiById(masterId).getInvention();
 
 		result=(invention != null && request.getPrincipal().getAccountId() == invention.getInventor().getUserAccount().getId());
 
@@ -35,43 +35,42 @@ public class InventorChimpumDeleteService implements AbstractDeleteService<Inven
 	}
 
 	@Override
-	public void bind(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void bind(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
 		
-		request.bind(entity, errors, "code", "title", "description", "startTime", "endTime", "link", "budget");
+		request.bind(entity, errors, "code", "theme", "summary", "startTime", "endTime", "furtherInfo", "quantity");
 		
 		
 	}
 
 	@Override
-	public void unbind(final Request<Chimpum> request, final Chimpum entity, final Model model) {
+	public void unbind(final Request<Goti> request, final Goti entity, final Model model) {
 		assert request != null;
 		assert entity != null;
 		assert model != null;
 	
-//		model.setAttribute("masterId",request.getModel().getInteger("masterId"));
-		request.unbind(entity, model, "code", "title", "description", "startTime", "endTime", "link", "budget");
+		request.unbind(entity, model, "code", "theme", "summary", "startTime", "endTime", "furtherInfo", "quantity");
 		
 		
 	}
 
 	@Override
-	public Chimpum findOne(final Request<Chimpum> request) {
+	public Goti findOne(final Request<Goti> request) {
 		assert request != null;
 		
-		Chimpum result;
+		Goti result;
 		int masterId;
 		
 		masterId=request.getModel().getInteger("id");
-		result = this.repository.findChimpumById(masterId);
+		result = this.repository.findGotiById(masterId);
 		
 		return result;
 	}
 
 	@Override
-	public void validate(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void validate(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
@@ -79,7 +78,7 @@ public class InventorChimpumDeleteService implements AbstractDeleteService<Inven
 	}
 
 	@Override
-	public void delete(final Request<Chimpum> request, final Chimpum entity) {
+	public void delete(final Request<Goti> request, final Goti entity) {
 		assert request != null;
 		assert entity != null;
 		

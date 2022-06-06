@@ -1,4 +1,4 @@
-package acme.features.inventor.chimpum;
+package acme.features.inventor.goti;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -11,7 +11,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.entities.inventions.Invention;
 import acme.entities.inventions.InventionType;
 import acme.framework.components.models.Model;
@@ -21,13 +21,13 @@ import acme.framework.services.AbstractCreateService;
 import acme.roles.Inventor;
 
 @Service
-public class InventorChimpumCreateService implements AbstractCreateService<Inventor, Chimpum> {
+public class InventorGotiCreateService implements AbstractCreateService<Inventor, Goti> {
 
 	@Autowired
-	protected InventorChimpumRepository		repository;
+	protected InventorGotiRepository		repository;
 	
 	@Override
-	public boolean authorise(final Request<Chimpum> request) {
+	public boolean authorise(final Request<Goti> request) {
 		assert request != null;
 		
 		boolean result;
@@ -43,31 +43,31 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 	}
 
 	@Override
-	public void bind(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void bind(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
 		
-		request.bind(entity, errors, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
+		request.bind(entity, errors, "code", "theme", "summary", "creationTime", "startTime", "endTime", "furtherInfo", "quantity");
 		
 	}
 
 	@Override
-	public void unbind(final Request<Chimpum> request, final Chimpum entity, final Model model) {
+	public void unbind(final Request<Goti> request, final Goti entity, final Model model) {
 		assert request != null;
 		assert entity != null;
 		assert model != null;
 	
 		model.setAttribute("masterId",request.getModel().getInteger("masterId"));
-		request.unbind(entity, model, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
+		request.unbind(entity, model, "code", "theme", "summary", "creationTime", "startTime", "endTime", "furtherInfo", "quantity");
 		
 	}
 
 	@Override
-	public Chimpum instantiate(final Request<Chimpum> request) {
+	public Goti instantiate(final Request<Goti> request) {
 		assert request != null;
 		
-		Chimpum result;
+		Goti result;
 		int masterId;
 		Invention invention;
 		Date moment;
@@ -76,7 +76,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 		
 		masterId= request.getModel().getInteger("masterId");
 		invention = this.repository.findOneInventionById(masterId);
-		result = new Chimpum();
+		result = new Goti();
 		moment = new Date(System.currentTimeMillis() - 1);
 		startMoment = DateUtils.addMonths(moment, 1);
 		endMoment = DateUtils.addWeeks(startMoment, 1);
@@ -88,7 +88,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 	}
 
 	@Override
-	public void validate(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void validate(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
@@ -99,7 +99,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 			String monthSt;
 			String daySt;
 			
-			partsOfCode = entity.getCode().split("-");
+			partsOfCode = entity.getCode().split(":");
 			yearSt = Integer.valueOf(entity.getCreationTime().getYear()).toString().substring(1);
 			monthSt = Integer.valueOf(entity.getCreationTime().getMonth()+1).toString();
 			if (monthSt.length()==1) {
@@ -110,7 +110,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 				daySt = "0"+daySt;
 			}
 
-			errors.state(request, partsOfCode[3].equals(yearSt) && partsOfCode[4].equals(monthSt) && partsOfCode[5].equals(daySt), "code", "inventor.chimpum.form.error.code");
+			errors.state(request, partsOfCode[1].equals(yearSt) && partsOfCode[2].equals(monthSt) && partsOfCode[3].equals(daySt), "code", "inventor.chimpum.form.error.code");
 		}
 		if(!errors.hasErrors("startTime")&&!errors.hasErrors("endTime") ) {
 			Calendar calendar;
@@ -129,15 +129,15 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 			
 			errors.state(request, entity.getStartTime()!=null && entity.getEndTime()!=null && entity.getEndTime().after(calendar2.getTime()), "endTime", "inventor.chimpum.form.error.endTime");
 		}
-		if(!errors.hasErrors("budget")) {
+		if(!errors.hasErrors("quantity")) {
 			final Set<String> acceptedCurrencies;
 			final String[] acceptedCurrenciesSt=this.repository.findAcceptedCurrencies().split(";");
 			acceptedCurrencies=new HashSet<String>();
 			Collections.addAll(acceptedCurrencies, acceptedCurrenciesSt);
 			
-			errors.state(request, entity.getBudget().getAmount()>0., "budget", "inventor.chimpum.form.error.budget.negative");
+			errors.state(request, entity.getQuantity().getAmount()>0., "quantity", "inventor.chimpum.form.error.quantity.negative");
 			
-			errors.state(request, acceptedCurrencies.contains(entity.getBudget().getCurrency()) , "budget", "inventor.chimpum.form.error.budget.invalid");
+			errors.state(request, acceptedCurrencies.contains(entity.getQuantity().getCurrency()) , "quantity", "inventor.chimpum.form.error.quantity.invalid");
 			
 		}
 		{
@@ -150,7 +150,7 @@ public class InventorChimpumCreateService implements AbstractCreateService<Inven
 	}
 
 	@Override
-	public void create(final Request<Chimpum> request, final Chimpum entity) {
+	public void create(final Request<Goti> request, final Goti entity) {
 		assert request != null;
 		assert entity != null;
 

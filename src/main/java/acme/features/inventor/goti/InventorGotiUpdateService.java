@@ -1,4 +1,4 @@
-package acme.features.inventor.chimpum;
+package acme.features.inventor.goti;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.entities.inventions.Invention;
 import acme.entities.inventions.InventionType;
 import acme.framework.components.models.Model;
@@ -19,16 +19,16 @@ import acme.framework.services.AbstractUpdateService;
 import acme.roles.Inventor;
 
 @Service
-public class InventorChimpumUpdateService implements AbstractUpdateService<Inventor, Chimpum>{
+public class InventorGotiUpdateService implements AbstractUpdateService<Inventor, Goti>{
 	
 	
 	@Autowired
-	protected InventorChimpumRepository		repository;
+	protected InventorGotiRepository		repository;
 	
 	
 	
 	@Override
-	public boolean authorise(final Request<Chimpum> request) {
+	public boolean authorise(final Request<Goti> request) {
 		assert request != null;
 
 		boolean result;
@@ -36,7 +36,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 		Invention invention;
 		
 		masterId = request.getModel().getInteger("id");
-		invention = this.repository.findChimpumById(masterId).getInvention();
+		invention = this.repository.findGotiById(masterId).getInvention();
 
 		result=(invention != null && invention.getInventionType()==InventionType.COMPONENT && request.getPrincipal().getAccountId() == invention.getInventor().getUserAccount().getId());
 
@@ -44,40 +44,40 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 	}
 
 	@Override
-	public void bind(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void bind(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
 		
-		request.bind(entity, errors, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");
+		request.bind(entity, errors, "code", "theme", "summary", "creationTime", "startTime", "endTime", "furtherInfo", "quantity");
 		
 		
 	}
 
 	@Override
-	public void unbind(final Request<Chimpum> request, final Chimpum entity, final Model model) {
+	public void unbind(final Request<Goti> request, final Goti entity, final Model model) {
 		assert request != null;
 		assert entity != null;
 		assert model != null;
 	
-		request.unbind(entity, model, "code", "title", "description", "creationTime", "startTime", "endTime", "link", "budget");	
+		request.unbind(entity, model, "code", "theme", "summary", "creationTime", "startTime", "endTime", "furtherInfo", "quantity");	
 	}
 
 	@Override
-	public Chimpum findOne(final Request<Chimpum> request) {
+	public Goti findOne(final Request<Goti> request) {
 		assert request != null;
 		
-		Chimpum result;
+		Goti result;
 		int masterId;
 		
 		masterId=request.getModel().getInteger("id");
-		result = this.repository.findChimpumById(masterId);
+		result = this.repository.findGotiById(masterId);
 		
 		return result;
 	}
 
 	@Override
-	public void validate(final Request<Chimpum> request, final Chimpum entity, final Errors errors) {
+	public void validate(final Request<Goti> request, final Goti entity, final Errors errors) {
 		assert request != null;
 		assert entity != null;
 		assert errors != null;
@@ -88,7 +88,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 			String monthSt;
 			String daySt;
 			
-			partsOfCode = entity.getCode().split("-");
+			partsOfCode = entity.getCode().split(":");
 			yearSt = Integer.valueOf(entity.getCreationTime().getYear()).toString().substring(1);
 			monthSt = Integer.valueOf(entity.getCreationTime().getMonth()+1).toString();
 			if (monthSt.length()==1) {
@@ -99,7 +99,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 				daySt = "0"+daySt;
 			}
 
-			errors.state(request, partsOfCode[3].equals(yearSt) && partsOfCode[4].equals(monthSt) && partsOfCode[5].equals(daySt), "code", "inventor.chimpum.form.error.code");
+			errors.state(request, partsOfCode[1].equals(yearSt) && partsOfCode[2].equals(monthSt) && partsOfCode[3].equals(daySt), "code", "inventor.chimpum.form.error.code");
 		
 		}
 		if(!errors.hasErrors("startTime")&&!errors.hasErrors("endTime") ) {
@@ -126,9 +126,9 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 			acceptedCurrencies=new HashSet<String>();
 			Collections.addAll(acceptedCurrencies, acceptedCurrenciesSt);
 			
-			errors.state(request, entity.getBudget().getAmount()>0., "budget", "inventor.chimpum.form.error.budget.negative");
+			errors.state(request, entity.getQuantity().getAmount()>0., "budget", "inventor.chimpum.form.error.quantity.negative");
 			
-			errors.state(request, acceptedCurrencies.contains(entity.getBudget().getCurrency()) , "budget", "inventor.chimpum.form.error.budget.invalid");
+			errors.state(request, acceptedCurrencies.contains(entity.getQuantity().getCurrency()) , "budget", "inventor.chimpum.form.error.quantity.invalid");
 			
 		}
 		{
@@ -141,7 +141,7 @@ public class InventorChimpumUpdateService implements AbstractUpdateService<Inven
 	}
 
 	@Override
-	public void update(final Request<Chimpum> request, final Chimpum entity) {
+	public void update(final Request<Goti> request, final Goti entity) {
 		assert request != null;
 		assert entity != null;
 		this.repository.save(entity);

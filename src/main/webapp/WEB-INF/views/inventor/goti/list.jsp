@@ -5,6 +5,6 @@
 
 <acme:list>
 	<acme:list-column code="inventor.list.label.chimpum.code" path="code"/>
-	<acme:list-column code="inventor.list.label.chimpum.title" path="title"/>
-	<acme:list-column code="inventor.list.label.chimpum.description" path="description"/>
+	<acme:list-column code="inventor.list.label.chimpum.title" path="theme"/>
+	<acme:list-column code="inventor.list.label.chimpum.description" path="summary"/>
 </acme:list>

@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.chimpum.Chimpum;
+import acme.entities.goti.Goti;
 import acme.entities.inventions.Invention;
 import acme.entities.inventions.InventionType;
 import acme.forms.MoneyExchange;
@@ -70,7 +70,7 @@ public class InventorInventionShowMineService implements AbstractShowService<Inv
 		
 		model.setAttribute("retailPrice", retailPrice);
 		
-		final Collection<Chimpum> chimpumCollection = this.repository.findChimpumByInventionId(entity.getId());
+		final Collection<Goti> chimpumCollection = this.repository.findChimpumByInventionId(entity.getId());
 		final boolean chimpumExists = !chimpumCollection.isEmpty();
 		
 		model.setAttribute("chimpumExists", chimpumExists);

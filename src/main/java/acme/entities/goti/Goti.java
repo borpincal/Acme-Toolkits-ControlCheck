@@ -1,4 +1,4 @@
-package acme.entities.chimpum;
+package acme.entities.goti;
 
 import java.util.Date;
 
@@ -26,7 +26,7 @@ import spam.detector.SpamDetector;
 @Entity
 @Getter
 @Setter
-public class Chimpum extends AbstractEntity {
+public class Goti extends AbstractEntity {
 
 	// Serialisation identifier ----------------------------------------
 	
@@ -35,7 +35,7 @@ public class Chimpum extends AbstractEntity {
 	// Atributes -------------------------------------------------------
 	
 	@NotBlank
-	@Pattern(regexp = "^[A-Z]{3}-[0-9]{3}(-[A-Z])-[0-9]{2}-[0-9]{2}-[0-9]{2}?$")
+	@Pattern(regexp = "^[0-9]{6}:[0-9]{2}:[0-9]{2}:[0-9]{2}$")
 	protected String			code;
 	
 	@NotNull
@@ -46,11 +46,11 @@ public class Chimpum extends AbstractEntity {
 	@NotNull
 	@NotBlank
 	@Length(min = 0, max = 100)
-	private String 				title;
+	private String 				theme;
 	
 	@NotBlank
 	@Length(min = 0, max = 255)
-	protected String			description;
+	protected String			summary;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,10 +62,10 @@ public class Chimpum extends AbstractEntity {
 	
 	@NotNull
 	@Valid
-	protected Money				budget;
+	protected Money				quantity;
 	
 	@URL
-	protected String			link;
+	protected String			furtherInfo;
 	
 	// Relationships-------------
 	@Valid
@@ -74,7 +74,7 @@ public class Chimpum extends AbstractEntity {
 	
 	public boolean isSpam(final SystemConfiguration systemConfiguration) {
 		
-		final String text = this.getDescription() + "\n" + this.getTitle();
+		final String text = this.getSummary() + "\n" + this.getTheme();
 		return SpamDetector.isSpam(text, systemConfiguration.getWeakSpamTerms(), systemConfiguration.getStrongSpamTerms(), systemConfiguration.getStrongSpamTermsThreshold(), systemConfiguration.getWeakSpamTermsThreshold());
 
 	}
